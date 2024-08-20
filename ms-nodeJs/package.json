@@ -1,0 +1,22 @@
+{
+  "name": "ms-nodejs-ts",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "ts-node-dev src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "migrate": "npx prisma migrate dev",
+    "generate": "npx prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.18.0",
+    "fastify": "^4.0.0",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/node-cron": "^3.0.11",
+    "prisma": "^5.18.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.0"
+  }
+}

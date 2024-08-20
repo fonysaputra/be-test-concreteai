@@ -1,0 +1,193 @@
+basePath: /
+definitions:
+  domain.LoginRequest:
+    properties:
+      email:
+        example: user@example.com
+        type: string
+      password:
+        example: password123
+        type: string
+    type: object
+  domain.PaymentAccountRequest:
+    properties:
+      accountNumber:
+        example: "2777625252525252"
+        type: string
+      accountType:
+        example: debit
+        type: string
+      currency:
+        example: USD
+        type: string
+    type: object
+  domain.RegisterRequest:
+    properties:
+      email:
+        example: user@example.com
+        type: string
+      password:
+        example: password123
+        type: string
+    type: object
+  domain.SampleRespSuccessGeneral:
+    properties:
+      code:
+        example: "200"
+        type: string
+      message:
+        example: success
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a documentation for the backend test concreteAi.
+  title: Backend Test ConcreteAi
+  version: "1.0"
+paths:
+  /api/v1/account:
+    get:
+      consumes:
+      - application/json
+      description: Get list my payment account with token
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: successful get list my account
+          schema:
+            $ref: '#/definitions/domain.SampleRespSuccessGeneral'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Get List My Payment Account
+      tags:
+      - account
+  /api/v1/account/create:
+    post:
+      consumes:
+      - application/json
+      description: Create payment account and every create payment account balance
+        is set default to 100$
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Payment Account Request Body
+        in: body
+        name: paymentAccountRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.PaymentAccountRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: successful create payment account
+          schema:
+            $ref: '#/definitions/domain.PaymentAccountRequest'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Create Payment Account
+      tags:
+      - account
+  /api/v1/login:
+    post:
+      consumes:
+      - application/json
+      description: Log in an existing user with email and password
+      parameters:
+      - description: Login Request Body
+        in: body
+        name: loginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Login successful
+          schema:
+            $ref: '#/definitions/domain.SampleRespSuccessGeneral'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Log in a user
+      tags:
+      - auth
+  /api/v1/profile:
+    get:
+      description: Get user profile by validating JWT token
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Profile data
+          schema:
+            $ref: '#/definitions/domain.SampleRespSuccessGeneral'
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Get user profile
+      tags:
+      - Profile
+  /api/v1/signup:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with an email and password
+      parameters:
+      - description: Register Request Body
+        in: body
+        name: registerRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Signup successful
+          schema:
+            $ref: '#/definitions/domain.SampleRespSuccessGeneral'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Sign up a new user
+      tags:
+      - auth
+swagger: "2.0"

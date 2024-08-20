@@ -1,0 +1,33 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"  // or "mysql", "sqlite", etc.
+  url      = env("DATABASE_URL")
+}
+
+model RecurringPayment {
+  id          Int      @id @default(autoincrement())
+  accountId   Int      @map("account_id")
+  amount      Float
+  interval    String
+  nextPayment DateTime @map("next_payment")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("recurring_payments") // Maps this model to the "recurring_payments" table
+}
+
+
+model Transactions {
+  id          Int      @id @default(autoincrement())
+  accountId   Int      @map("account_id")
+  amount      Float
+  toAddress   String   @map("to_address")
+  status      String
+  transactionTimestamp   DateTime @map("transaction_timestamp") 
+  createdAt   DateTime @default(now()) @map("created_at")
+
+   @@map("transactions") // Maps this model to the "transactions" table
+}
