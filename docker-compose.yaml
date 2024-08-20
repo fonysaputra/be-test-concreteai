@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  ms-go-gin:
+    build:
+      context: ./ms-go-gin
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./ms-go-gin/.env
+
+  ms-nodejs:
+    build:
+      context: ./ms-nodejs
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    restart: always
