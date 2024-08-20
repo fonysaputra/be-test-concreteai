@@ -12,8 +12,10 @@ This repository contains a Go application and NodeJs fastify that interacts with
 Create a `.env` file in the root directory of the project with the following variables:
 
 ```env
-SUPABASE_URL=https://wiiyllanfrmcducfbjpn.supabase.co
-SUPABASE_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpaXlsbGFuZnJtY2R1Y2ZianBuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQwNzQ2OTIsImV4cCI6MjAzOTY1MDY5Mn0.v6oR2-7tD2buhT6-H6fFTGvFwUM33LG5PiSCygumdaI
+SUPABASE_URL=https://bitvvdykgckoiudndxpi.supabase.co
+SUPABASE_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJpdHZ2ZHlrZ2Nrb2l1ZG5keHBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQwNzk4MDEsImV4cCI6MjAzOTY1NTgwMX0.VrUYF0gxtraeBbTUFqKz3_b8tq4ZxYFd4xwFTqsooUU
+DSN_POSTGRES=user=postgres.bitvvdykgckoiudndxpi password=P@ssw0rd2024TestBE host=aws-0-ap-southeast-1.pooler.supabase.com port=6543 dbname=postgres
+PORT=8080
 ```
 
 ## How To Run This Project
