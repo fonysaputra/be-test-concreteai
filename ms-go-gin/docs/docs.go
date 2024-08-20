@@ -236,6 +236,163 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/v1/transactions/send": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Transactions Send money from account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "Send",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Transactions Send Request Body",
+                        "name": "sendRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.TrxRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "transactions success",
+                        "schema": {
+                            "$ref": "#/definitions/domain.TrxRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/transactions/withdrawal": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Withdraw money from account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "Withdrawal",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Withdrawal Send Request Body",
+                        "name": "trxRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.TrxRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "transactions success",
+                        "schema": {
+                            "$ref": "#/definitions/domain.TrxRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/transactions/{account_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get all transactions for an account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "Get all transactions for an account",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Account ID",
+                        "name": "account_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get list transactions",
+                        "schema": {
+                            "$ref": "#/definitions/domain.TrxRequest"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -254,6 +411,9 @@ const docTemplate = `{
         },
         "domain.PaymentAccountRequest": {
             "type": "object",
+            "required": [
+                "accountNumber"
+            ],
             "properties": {
                 "accountNumber": {
                     "type": "string",
@@ -294,18 +454,39 @@ const docTemplate = `{
                     "example": "success"
                 }
             }
+        },
+        "domain.TrxRequest": {
+            "type": "object",
+            "required": [
+                "accountNumber",
+                "to_address"
+            ],
+            "properties": {
+                "accountNumber": {
+                    "type": "string",
+                    "example": "2777625252525252"
+                },
+                "amount": {
+                    "type": "string",
+                    "example": "5"
+                },
+                "to_address": {
+                    "type": "string",
+                    "example": "2777625252525252"
+                }
+            }
         }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
-	Host:             "localhost:8080",
-	BasePath:         "/",
+	Version:          "",
+	Host:             "",
+	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "Backend Test ConcreteAi",
-	Description:      "This is a documentation for the backend test concreteAi.",
+	Title:            "",
+	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

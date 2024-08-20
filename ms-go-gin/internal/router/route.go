@@ -27,6 +27,7 @@ func New(cfg *config.Config, db *gorm.DB) *gin.Engine {
 
 	authHandlers := handlers.NewAuth(cfg)
 	accountHandlers := handlers.NewAccount(cfg, db)
+	trxHandlers := handlers.NewTransactions(cfg, db)
 	mid := middlewares.NewCustomMiddleware(cfg)
 	// Routes for authentication
 	v1 := router.Group("/api/v1")
@@ -38,6 +39,11 @@ func New(cfg *config.Config, db *gorm.DB) *gin.Engine {
 
 	v1RouteAccount.GET("", accountHandlers.List)
 	v1RouteAccount.POST("/create", accountHandlers.Create)
+
+	v1RouteTrx := v1.Group("/transactions", mid.Jwt)
+	v1RouteTrx.POST("/send", trxHandlers.Send)
+	v1RouteTrx.POST("/withdrawal", trxHandlers.Withdrawal)
+	v1RouteTrx.GET("/:account_id", trxHandlers.GetTransactions)
 
 	return router
 }

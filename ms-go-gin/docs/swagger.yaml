@@ -1,4 +1,3 @@
-basePath: /
 definitions:
   domain.LoginRequest:
     properties:
@@ -20,6 +19,8 @@ definitions:
       currency:
         example: USD
         type: string
+    required:
+    - accountNumber
     type: object
   domain.RegisterRequest:
     properties:
@@ -39,12 +40,23 @@ definitions:
         example: success
         type: string
     type: object
-host: localhost:8080
+  domain.TrxRequest:
+    properties:
+      accountNumber:
+        example: "2777625252525252"
+        type: string
+      amount:
+        example: "5"
+        type: string
+      to_address:
+        example: "2777625252525252"
+        type: string
+    required:
+    - accountNumber
+    - to_address
+    type: object
 info:
   contact: {}
-  description: This is a documentation for the backend test concreteAi.
-  title: Backend Test ConcreteAi
-  version: "1.0"
 paths:
   /api/v1/account:
     get:
@@ -190,4 +202,105 @@ paths:
       summary: Sign up a new user
       tags:
       - auth
+  /api/v1/transactions/{account_id}:
+    get:
+      consumes:
+      - application/json
+      description: Get all transactions for an account
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Account ID
+        in: path
+        name: account_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: get list transactions
+          schema:
+            $ref: '#/definitions/domain.TrxRequest'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Get all transactions for an account
+      tags:
+      - transactions
+  /api/v1/transactions/send:
+    post:
+      consumes:
+      - application/json
+      description: Transactions Send money from account
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Transactions Send Request Body
+        in: body
+        name: sendRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TrxRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: transactions success
+          schema:
+            $ref: '#/definitions/domain.TrxRequest'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Send
+      tags:
+      - transactions
+  /api/v1/transactions/withdrawal:
+    post:
+      consumes:
+      - application/json
+      description: Withdraw money from account
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Withdrawal Send Request Body
+        in: body
+        name: trxRequest
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TrxRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: transactions success
+          schema:
+            $ref: '#/definitions/domain.TrxRequest'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Withdrawal
+      tags:
+      - transactions
 swagger: "2.0"

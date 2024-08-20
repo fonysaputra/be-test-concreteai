@@ -12,6 +12,12 @@ type RegisterRequest struct {
 
 type PaymentAccountRequest struct {
 	AccountType   string `json:"accountType" example:"debit"`
-	AccountNumber string `json:"accountNumber" example:"2777625252525252" binding:"required,max=16"`
+	AccountNumber string `json:"accountNumber" example:"2777625252525252" binding:"required"`
 	Currancy      string `json:"currency" example:"USD"`
+}
+
+type TrxRequest struct {
+	AccountNumber string `json:"accountNumber" example:"2777625252525252" binding:"required"`
+	Amount        string `json:"amount" example:"5"`
+	ToAddress     string `json:"to_address" example:"2777625252525252" binding:"required"`
 }
