@@ -1,6 +1,6 @@
-# Backend Test CencreteAi With Go Gin and NodeJs fastify
+# Backend Test ConcreteAi With Go Gin and NodeJs
 
-This repository contains a Go application and NodeJs fastify that interacts with Supabase to manage user authentication, retrieve transaction and job scheduler for the auto debit/recurring simulate payments will automatically be processed at specified intervals. This application is set up to run with Docker and Docker Compose.
+This repository contains a Go application and NodeJs from cron job that interacts with Supabase to manage user authentication, retrieve transaction and job scheduler for the auto debit/recurring simulate payments will automatically be processed at specified intervals. This application is set up to run with Docker and Docker Compose.
 
 ## Prerequisites
 
